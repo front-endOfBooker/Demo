@@ -16,6 +16,7 @@
                     <!-- <input type="checkbox" v-model="item.checked"> -->
                     <el-checkbox v-model="item.checked"></el-checkbox>
                     <span :class="{'checked': item.checked}">{{item.value}}</span>
+                    <span class="time">{{item.date | filter}}</span>
                     <button class="el-icon-circle-close" @click="delTodo(index)"></button>
                   </div>
                   
@@ -50,6 +51,16 @@ export default {
     },
     created () {
         this.initList()
+    },
+    filters: {
+        filter: function(date){
+            var month = date.getMonth()
+            var day = date.getDate()
+            var hour = date.getHours()
+            var minute = date.getMinutes()
+            var second = date.getSeconds()
+            return `${month}-${day}  ${hour}:${minute}:${second}`
+        }
     },
     computed: {
         left: function(){
@@ -90,9 +101,11 @@ export default {
         // 当按下enter后，将input中的信息接受下来，然后保存起来，渲染到下面的task中
         this.todos.push({
             value: this.newTodo,
+            date: new Date(),
             checked: false
         })
         this.newTodo = ''
+        console.log(this.todos)
         },
         // 删除按钮
         delTodo (index) {
@@ -162,6 +175,13 @@ export default {
                 height: 40px;
                 line-height: 40px;
                 width: 478px;
+                .time {
+                    position: relative;
+                    left: 50%;
+                    margin-left: -17px;
+                    color: #999;
+                    font-size: 12px;
+                }
                 .checked {
                     text-decoration: line-through;
                     color: #ccc;

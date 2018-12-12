@@ -1,6 +1,6 @@
-# y
+# todos by Vue.js
 
-> y
+> todos
 
 ## Build Setup
 
